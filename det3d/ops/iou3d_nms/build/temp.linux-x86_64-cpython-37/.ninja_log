@@ -1,0 +1,17 @@
+# ninja log v5
+3	2349	1666249253087422555	/project/mira/personal/timmy8986/3dal_pytorch/det3d/ops/iou3d_nms/build/temp.linux-x86_64-cpython-37/src/iou3d_nms_kernel.o	cb807700bdd35608
+2	32780	1666249283492981632	/project/mira/personal/timmy8986/3dal_pytorch/det3d/ops/iou3d_nms/build/temp.linux-x86_64-cpython-37/src/iou3d_cpu.o	5d483d60cb64bd47
+2	33313	1666249284028973858	/project/mira/personal/timmy8986/3dal_pytorch/det3d/ops/iou3d_nms/build/temp.linux-x86_64-cpython-37/src/iou3d_nms.o	9047e8fe36221d16
+3	36008	1666249286729934692	/project/mira/personal/timmy8986/3dal_pytorch/det3d/ops/iou3d_nms/build/temp.linux-x86_64-cpython-37/src/iou3d_nms_api.o	3498961bb5b5071d
+3	2980	1666254376	/project/mira/personal/timmy8986/3dal_pytorch/det3d/ops/iou3d_nms/build/temp.linux-x86_64-cpython-37/src/iou3d_nms_kernel.o	4fd329520b23a5e9
+2	18909	1666254392	/project/mira/personal/timmy8986/3dal_pytorch/det3d/ops/iou3d_nms/build/temp.linux-x86_64-cpython-37/src/iou3d_cpu.o	95d1c86b372350e8
+2	19204	1666254393	/project/mira/personal/timmy8986/3dal_pytorch/det3d/ops/iou3d_nms/build/temp.linux-x86_64-cpython-37/src/iou3d_nms.o	e7c0fbb8628fd46a
+2	24707	1666254398	/project/mira/personal/timmy8986/3dal_pytorch/det3d/ops/iou3d_nms/build/temp.linux-x86_64-cpython-37/src/iou3d_nms_api.o	801b73043a5abcdc
+3	1939	1666256214037870716	/project/mira/personal/timmy8986/3dal_pytorch/det3d/ops/iou3d_nms/build/temp.linux-x86_64-cpython-37/src/iou3d_nms_kernel.o	4fd329520b23a5e9
+2	15561	1666256227658673923	/project/mira/personal/timmy8986/3dal_pytorch/det3d/ops/iou3d_nms/build/temp.linux-x86_64-cpython-37/src/iou3d_cpu.o	95d1c86b372350e8
+2	16727	1666256228824657077	/project/mira/personal/timmy8986/3dal_pytorch/det3d/ops/iou3d_nms/build/temp.linux-x86_64-cpython-37/src/iou3d_nms.o	e7c0fbb8628fd46a
+2	22493	1666256234584573858	/project/mira/personal/timmy8986/3dal_pytorch/det3d/ops/iou3d_nms/build/temp.linux-x86_64-cpython-37/src/iou3d_nms_api.o	801b73043a5abcdc
+7	4944	1666861667	/project/mira/personal/timmy8986/3dal_pytorch/det3d/ops/iou3d_nms/build/temp.linux-x86_64-cpython-37/src/iou3d_nms_kernel.o	4fd329520b23a5e9
+4	36072	1666861698	/project/mira/personal/timmy8986/3dal_pytorch/det3d/ops/iou3d_nms/build/temp.linux-x86_64-cpython-37/src/iou3d_cpu.o	95d1c86b372350e8
+4	37719	1666861700	/project/mira/personal/timmy8986/3dal_pytorch/det3d/ops/iou3d_nms/build/temp.linux-x86_64-cpython-37/src/iou3d_nms.o	e7c0fbb8628fd46a
+4	46831	1666861709	/project/mira/personal/timmy8986/3dal_pytorch/det3d/ops/iou3d_nms/build/temp.linux-x86_64-cpython-37/src/iou3d_nms_api.o	801b73043a5abcdc
