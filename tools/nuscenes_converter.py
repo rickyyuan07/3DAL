@@ -4,8 +4,9 @@ from pyquaternion import Quaternion
 from nuscenes.nuscenes import NuScenes
 from nuscenes.utils.data_classes import LidarPointCloud
 
-dataroot = '/home/master/10/cytseng/data/sets/nuscenes/v1.0-mini/'
-version = 'v1.0-mini'
+# version = 'v1.0-mini'
+version = 'v1.0-trainval'
+dataroot = f'/home/master/10/cytseng/data/sets/nuscenes/{version}/'
 nusc = NuScenes(version=version, dataroot=dataroot, verbose=True)
 
 for seq_id, scene in enumerate(nusc.scene):
@@ -43,7 +44,7 @@ for seq_id, scene in enumerate(nusc.scene):
             }
         }
         filename = f"seq_{seq_id}_frame_{frame_id}.pkl"
-        with open('/home/extra/rickyyuan/dataset/nuscenes/v1.0-mini/lidar/' + filename, 'wb') as f:
+        with open(f'/home/extra/rickyyuan/dataset/nuscenes/{version}/lidar/' + filename, 'wb') as f:
             pickle.dump(lidar, f)
 
 
@@ -105,5 +106,5 @@ for seq_id, scene in enumerate(nusc.scene):
         sample_token = sample['next']
 
         # Write to file
-        with open('/home/extra/rickyyuan/dataset/nuscenes/v1.0-mini/annos/' + filename, 'wb') as f:
+        with open(f'/home/extra/rickyyuan/dataset/nuscenes/{version}/annos/' + filename, 'wb') as f:
             pickle.dump(annos, f)
