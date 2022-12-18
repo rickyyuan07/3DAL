@@ -1,6 +1,6 @@
 import pickle
 import numpy as np
-from pyquaternion import Quaternion
+from pyquaternion.quaternion import Quaternion
 from nuscenes.nuscenes import NuScenes
 from nuscenes.utils.data_classes import LidarPointCloud
 
@@ -32,9 +32,6 @@ nusc = NuScenes(version=version, dataroot=dataroot, verbose=True)
 
 for seq_id, scene in enumerate(nusc.scene):
     print('processed scene: ', scene['name'], '(', seq_id+1, '/', len(nusc.scene), ')')
-    # if scene['name'] not in val_scenes:
-    #     print('skip scene: ', scene['name'])
-    #     continue
     # Get first sample token
     sample_token = scene['first_sample_token']
     frame_id = 0
@@ -48,7 +45,7 @@ for seq_id, scene in enumerate(nusc.scene):
 
         # Transform the pointcloud to the ego vehicle frame for the timestamp of the sweep.
         cs_record = nusc.get('calibrated_sensor', sd_record['calibrated_sensor_token'])
-        pc.rotate(Quaternion(cs_record['rotation']))
+        pc.rotate(Quaternion(cs_record['rotation']).rotation_matrix)
         pc.translate(np.array(cs_record['translation']))
 
         # Get points in lidar frame
@@ -105,7 +102,9 @@ for seq_id, scene in enumerate(nusc.scene):
             box = nusc.get_box(ann_token)
             box_ego = box.copy()
             box_ego.translate(-np.array(ego_translation))
-            box_ego.rotate(Quaternion(ego_rotation.inverse))
+            box_ego.rotate(Quaternion(ego_rotation).inverse)
+            # swap w and l
+            box_ego.wlh = np.array([box_ego.wlh[1], box_ego.wlh[0], box_ego.wlh[2]])
             box_ego = np.concatenate([box_ego.center, box_ego.wlh, [0, 0, box_ego.orientation.yaw_pitch_roll[0]]])
             # Get object
             obj = {
@@ -130,9 +129,6 @@ for seq_id, scene in enumerate(nusc.scene):
             'objects': objects
         }
 
-        frame_id += 1
-        sample_token = sample['next']
-
         # Write to file
         if scene['name'] in val_scenes:
             with open(f'/home/extra/rickyyuan/dataset/nuscenes/{version}/val/annos/' + filename, 'wb') as f:
@@ -140,3 +136,6 @@ for seq_id, scene in enumerate(nusc.scene):
         else:
             with open(f'/home/extra/rickyyuan/dataset/nuscenes/{version}/train/annos/' + filename, 'wb') as f:
                 pickle.dump(annos, f)
+
+        frame_id += 1
+        sample_token = sample['next']
