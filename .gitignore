@@ -8,3 +8,5 @@ tools/log*/
 tools/test_pkl.py
 visualize/
 work_dirs/
+
+__pycache__/
