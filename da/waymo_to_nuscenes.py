@@ -13,7 +13,7 @@ waymo_anno_dir = "/project/mira/personal/timmy8986/3dal_pytorch/data/Waymo/train
 waymo_lidar_dir = "/project/mira/personal/timmy8986/3dal_pytorch/data/Waymo/train/lidar"
 
 anno_files = os.listdir(waymo_anno_dir)
-lidar_files = os.listdir(waymo_lidar_dir)
+# lidar_files = os.listdir(waymo_lidar_dir)
 
 waymo_labels = {1: 'Vehicle', 2: 'Pedestrian', 4: 'Cyclist'}
 waymo_boxes = {1: np.empty((0,3), np.float32), 2: np.empty((0,3), np.float32), 4: np.empty((0,3), np.float32)}
@@ -43,7 +43,7 @@ print("waymo_lwh_mean = ", waymo_lwh_mean)
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 # Calculate mean of length, width and height for NuScenes dataset #
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
-nuscenes_dir = '/tmp2/tkyen/nuscenes'
+nuscenes_dir = '/tmp2/tkyen/nuscenes/v1.0-mini'
 nusc = NuScenes(version='v1.0-mini', dataroot=nuscenes_dir, verbose=True)
 
 nuscenes_labels = waymo_labels
@@ -68,19 +68,26 @@ for label in nuscenes_labels:
         nuscenes_lwh_mean[label] = lwh_mean               # l, w, h
 
 print("nuscenes_lwh_mean = ", nuscenes_lwh_mean)
+# {1: array([4.62030673, 1.92481494, 1.69039835]),
+#  2: array([0.73394802, 0.68270278, 1.75781567]),
+#  4: array([1.90842437, 0.66322129, 1.44645658])}
 
 
 # # # # # # # # # # # # # # # # # #
 # Statistical normalization (SN)  #
 # # # # # # # # # # # # # # # # # #
-w2n_anno_dir = "/tmp2/tkyen/3DAL/da/waymo_to_nuscenes/train/annos"
-w2n_lidar_dir = "/tmp2/tkyen/3DAL/da/waymo_to_nuscenes/train/lidar"
+w2n_anno_dir = "/project/mira/personal/waymo_to_nuscenes/train/annos"
+w2n_lidar_dir = "/project/mira/personal/waymo_to_nuscenes/train/lidar"
 w2n_deltas = {1: np.zeros((1,3), np.float32), 2: np.zeros((1,3), np.float32), 4: np.zeros((1,3), np.float32)}
 
 for label in waymo_labels:
     w2n_deltas[label] = nuscenes_lwh_mean[label] - waymo_lwh_mean[label]
 
 print("w2n_deltas = ", w2n_deltas)
+# {1: array([-0.1371181 , -0.17290664, -0.10204123]),
+#  2: array([-0.18131999, -0.18930674,  0.04326172]),
+#  4: array([ 0.16029607, -0.15884734, -0.26282403])}
+
 
 input_dict = {  'waymo_anno_dir': waymo_anno_dir,
                 'waymo_lidar_dir': waymo_lidar_dir,
@@ -156,9 +163,8 @@ def waymo_to_nuscenes(input_dict, anno_file):
         pickle.dump(lidar, lidar_pk)
 
 
-mp_pool = Pool(8)
-for anno_file in tqdm(anno_files):
-    mp_pool.apply_async(waymo_to_nuscenes, args=(input_dict, anno_file))
-
-mp_pool.close()
-mp_pool.join()
+with Pool() as pool:
+    for anno_file in anno_files:
+        pool.apply_async(waymo_to_nuscenes, args=(input_dict, anno_file))
+    pool.close()
+    pool.join()
