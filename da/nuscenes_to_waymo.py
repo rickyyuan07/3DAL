@@ -83,10 +83,9 @@ for label in waymo_labels:
     n2w_deltas[label] = waymo_lwh_mean[label] - nuscenes_lwh_mean[label]
 
 print("n2w_deltas = ", n2w_deltas)
-# {1: array([-0.1371181 , -0.17290664, -0.10204123]),
-#  2: array([-0.18131999, -0.18930674,  0.04326172]),
-#  4: array([ 0.16029607, -0.15884734, -0.26282403])}
-
+# {1: array([0.13840008, 0.1371975 , 0.05741251], dtype=float32),
+#  2: array([ 0.18663579,  0.20456076, -0.04978061], dtype=float32),
+#  4: array([-0.16285563,  0.12881416,  0.32777882], dtype=float32)}
 
 input_dict = {  'nuscenes_anno_dir': nuscenes_anno_dir,
                 'nuscenes_lidar_dir': nuscenes_lidar_dir,
